@@ -24,47 +24,72 @@
 #                                            #
 # ========= STAGING AND PLANNING ===========#
 ```
-**Linux distro Malware scanner and heuristics model**  
+# Legion: Linux Malware Scanner and Heuristics Model
+
+---
+
+## Table of Contents
+
+- [Why](#why)
+- [Where We Are](#where-we-are)
+- [Integrations](#integrations)
+- [Build & Deploy](#build--deploy)
+- [Ideas](#ideas)
+
 ---
 
 ## Why
 
-- I have dreamed of building my own malware scan tool.
-- I also wanted to learn **C** in a way to teach and allow facts to hold security at its highest.
-- I vow to help the UNIX world with my **heart, mind, and passions**.
-- We want to move away from signatures and push for heuristics.
+Legion is more than just a malware scanner—it’s a mission. The goal is to push beyond traditional signature-based detection and embrace heuristic analysis and real-time monitoring to safeguard Linux environments.
 
-## Where we are
+- I have always dreamed of building my own malware scanning tool.
+- I wanted to learn **C** in a way that teaches others and upholds security as a top priority.
+- I am committed to strengthening the **UNIX** world with my **heart, mind, and passions**.
+- Moving away from signature-based detection and pushing toward **heuristics-first** methodologies.
 
-- First test was stable but failed on **6** lines.
-- Developed an active `whitelist.txt` file for a baseline heuristic model. 
-- Developed a <placeholder> `signatures.txt` file for a framework for building known threats.
-- Looking to keep it **high level and heuristic** with updated resources.
-- Next step is to build the signature and whitelist requirment to an api, instead of a local txt. 
-- Wanting to tie in a **SIEM tool**, unknown which outside of **Wazuh** or **Splunk**.
+---
 
-## Integrations 
+## Where We Are
 
-- **Rust-based scanner (`scanner.rs`)** – High-speed, multi-threaded SHA-256 scanning.
-- **YARA & ClamAV (`yara_integrations.c`)** – Signature-based malware detection.
-- **eBPF real-time monitoring (`ebpf_monitor.bpf.c`)** – Tracks execution & file changes at the kernel level.
-- **REST API Logging (`server.py`)** – Sends scan alerts to a web dashboard.
-- **Signature Auto-Update (`update_signatures.sh`)** – Fetches latest malware definitions via Git.
-- **Whitelist Support (`whitelist.txt`)** – Reduces false positives.
+Development is progressing with early tests yielding promising results, though there’s still work to do.
+
+- The **first test** was stable but failed on **six critical lines**.
+- An active `whitelist.txt` file has been created to support a baseline heuristic model.
+- A placeholder `signatures.txt` file has been set up as a foundation for identifying known threats.
+- The focus remains on keeping detection **high-level and heuristic-driven**, with continuous updates and refinements.
+- Next milestone: Migrate **signatures and whitelist** management to an API rather than local text files.
+- Evaluating **SIEM** integrations, with potential candidates being **Wazuh** and **Splunk**.
+
+---
+
+## Integrations
+
+Legion is designed with a modular approach to support various security tools and frameworks.
+
+- **Rust-based scanner (`scanner.rs`)** – High-speed, multi-threaded SHA-256 scanning for rapid analysis.
+- **YARA & ClamAV (`yara_integrations.c`)** – Leverages traditional signature-based detection for known threats.
+- **eBPF real-time monitoring (`ebpf_monitor.bpf.c`)** – Hooks into the Linux kernel to track suspicious execution and file modifications.
+- **REST API Logging (`server.py`)** – Pushes scan alerts and logs to a centralized web dashboard.
+- **Signature Auto-Update (`update_signatures.sh`)** – Fetches the latest malware definitions from a remote repository.
+- **Whitelist Support (`whitelist.txt`)** – Reduces false positives by allowing trusted files and processes.
+
+---
 
 ## Build & Deploy
 
-- **Makefile** – Automates compilation & linking of all components.
-- **Dashboard UI** – Web-based log visibility & reporting.
+Legion is designed for ease of deployment and flexibility in various environments.
 
+- **Makefile** – Automates compilation, linking, and build dependencies.
+- **Dashboard UI** – Web-based visualization for logs, threat reports, and real-time monitoring.
+
+---
 
 ## Ideas
 
-**Headless for quick and low-volume scans**
-- Keep the file local and fast, **no prize for second place**.
-**Agentless for VM and container-based deployments**
-- Kubernetes audit logs or **Falco rules**, Legion could detect unusual processes or syscalls.
-- API signature integration
-- MLOp's .... yes pleaze. 
+### **Headless for quick and low-volume scans**
+- Keeping everything **local and fast**, because **there’s no prize for second place** when it comes to security.
 
-
+### **Agentless for VM and container-based deployments**
+- Leverage **Kubernetes audit logs** and **Falco rules** to detect unusual processes and system calls.
+- API-driven signature integration for seamless updates and heuristics tuning.
+- **MLOps integration** – Machine learning for behavioral analysis and anomaly detection.
