@@ -1,0 +1,96 @@
+
+```
+ ██▓    ▓█████   ▄████  ██▓ ▒█████   ███▄    █ 
+▓██▒    ▓█   ▀  ██▒ ▀█▒▓██▒▒██▒  ██▒ ██ ▀█   █ 
+▒██░    ▒███   ▒██░▄▄▄░▒██▒▒██░  ██▒▓██  ▀█ ██▒
+▒██░    ▒▓█  ▄ ░▓█  ██▓░██░▒██   ██░▓██▒  ▐▌██▒
+░██████▒░▒████▒░▒▓███▀▒░██░░ ████▓▒░▒██░   ▓██░
+░ ▒░▓  ░░░ ▒░ ░ ░▒   ▒ ░▓  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ 
+░ ░ ▒  ░ ░ ░  ░  ░   ░  ▒ ░  ░ ▒ ▒░ ░ ░░   ░ ▒░
+  ░ ░      ░   ░ ░   ░  ▒ ░░ ░ ░ ▒     ░   ░ ░ 
+    ░  ░   ░  ░      ░  ░      ░ ░           ░ 
+                                               
+                                                        
+          The Linux Malware Sentinel 
+
+
+
+# ================ 𝕃𝔼𝔾𝕀𝕆ℕ ==================#
+#                                            #
+#    "Dwell on the beauty of life. Watch     #
+#         the stars, and see yourself        #
+#             running with them".            #
+#             - Marcus Aurelius              #
+#                                            #
+# ========= STAGING AND PLANNING ===========#
+```
+# Legion: Linux Malware Scanner and Heuristics Model
+
+---
+
+## Table of Contents
+
+- [Why](#why)
+- [Where We Are](#where-we-are)
+- [Integrations](#integrations)
+- [Build & Deploy](#build--deploy)
+- [Ideas](#ideas)
+
+---
+
+## Why
+
+Legion is more than just a malware scanner—it’s a mission. The goal is to push beyond traditional signature-based detection and embrace heuristic analysis and real-time monitoring to safeguard Linux environments.
+
+- I have always dreamed of building my own malware scanning tool.
+- I wanted to learn **C** in a way that teaches others and upholds security as a top priority.
+- I am committed to strengthening the **UNIX** world with my **heart, mind, and passions**.
+- Moving away from signature-based detection and pushing toward **heuristics-first** methodologies.
+
+---
+
+## Where We Are
+
+Development is progressing with early tests yielding promising results, though there’s still work to do.
+
+- The **first test** was stable but failed on **six critical lines**.
+- An active `whitelist.txt` file has been created to support a baseline heuristic model.
+- A placeholder `signatures.txt` file has been set up as a foundation for identifying known threats.
+- The focus remains on keeping detection **high-level and heuristic-driven**, with continuous updates and refinements.
+- Next milestone: Migrate **signatures and whitelist** management to an API rather than local text files.
+- Evaluating **SIEM** integrations, with potential candidates being **Wazuh** and **Splunk**.
+
+---
+
+## Integrations
+
+Legion is designed with a modular approach to support various security tools and frameworks.
+
+- **Rust-based scanner (`scanner.rs`)** – High-speed, multi-threaded SHA-256 scanning for rapid analysis.
+- **YARA & ClamAV (`yara_integrations.c`)** – Leverages traditional signature-based detection for known threats.
+- **eBPF real-time monitoring (`ebpf_monitor.bpf.c`)** – Hooks into the Linux kernel to track suspicious execution and file modifications.
+- **REST API Logging (`server.py`)** – Pushes scan alerts and logs to a centralized web dashboard.
+- **Signature Auto-Update (`update_signatures.sh`)** – Fetches the latest malware definitions from a remote repository.
+- **Whitelist Support (`whitelist.txt`)** – Reduces false positives by allowing trusted files and processes.
+
+---
+
+## Build & Deploy
+
+Legion is designed for ease of deployment and flexibility in various environments.
+
+- **Makefile** – Automates compilation, linking, and build dependencies.
+- **Dockerfile** – Containerizes the application for consistent deployment across environments.
+- **Dashboard UI** – Web-based visualization for logs, threat reports, and real-time monitoring.
+
+---
+
+## Ideas
+
+### **Headless for quick and low-volume scans**
+- Keeping everything **local and fast**, because **there’s no prize for second place** when it comes to security.
+
+### **Agentless for VM and container-based deployments**
+- Leverage **Kubernetes audit logs** and **Falco rules** to detect unusual processes and system calls.
+- API-driven signature integration for seamless updates and heuristics tuning.
+- **MLOps integration** – Machine learning for behavioral analysis and anomaly detection.

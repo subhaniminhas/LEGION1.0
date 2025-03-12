@@ -1,0 +1,23 @@
+#First docker file for legion*
+
+# group
+FROM gcc:10.2.0
+
+# Create a non-root + lower tier for access
+RUN addgroup --system appgroup && adduser --system appuser --ingroup appgroup 
+
+# Working directory 
+WORKDIR /usr/src/app
+
+# Copy 
+COPY . .
+
+# Compile 
+RUN gcc -o legion legion.c && \
+    chown -R appuser:appgroup /usr/src/app
+
+# Switch to the non-root user
+USER appuser
+
+# Run 
+CMD ["./legion"]
