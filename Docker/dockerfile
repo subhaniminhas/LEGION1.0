@@ -1,23 +1,30 @@
-#First docker file for legion*
+# First docker file for legion
 
-# group
+# Base image
 FROM gcc:10.2.0
 
-# Create a non-root + lower tier for access
-RUN addgroup --system appgroup && adduser --system appuser --ingroup appgroup 
+# Install sudo and docker
+RUN apt-get update && apt-get install -y sudo docker.io
 
-# Working directory 
+# Create a non-root user with sudo privileges
+RUN addgroup --system appgroup && adduser --system appuser --ingroup appgroup && \
+    echo "appuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Add appuser to the docker group
+RUN usermod -aG docker appuser
+
+# Working directory
 WORKDIR /usr/src/app
 
-# Copy 
+# Copy source code
 COPY . .
 
-# Compile 
+# Compile the application
 RUN gcc -o legion legion.c && \
     chown -R appuser:appgroup /usr/src/app
 
 # Switch to the non-root user
 USER appuser
 
-# Run 
-CMD ["./legion"]
+# Run the application
+CMD ["sudo", "./legion"]
