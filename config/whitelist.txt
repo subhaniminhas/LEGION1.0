@@ -173,3 +173,10 @@
 /var/log/legion.log
 /var/log/hardn_audit.log
 /usr/local/share/hardn/signatures.db
+
+# ============================
+# LEGION SPECIFIC
+# ============================
+/usr/local/bin/legion
+/etc/legion/config.yaml
+/etc/legion/rulesets/
