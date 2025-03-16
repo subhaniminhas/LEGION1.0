@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  legion:
+    image: legion:latest
+    container_name: legion_container
+    volumes:
+      - ./legion:/app
+    entrypoint: ["cron", "-f"]
+    environment:
+      - CRON_TZ=UTC
+    command: >
+      bash -c "echo '0 * * * * root cd /app && ./run_legion.sh >> /var/log/cron.log 2>&1' > /etc/cron.d/legion_cron &&
+               chmod 0644 /etc/cron.d/legion_cron &&
+               crontab /etc/cron.d/legion_cron &&
+               touch /var/log/cron.log &&
+               cron && tail -f /var/log/cron.log"
